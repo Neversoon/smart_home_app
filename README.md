@@ -1,3 +1,3 @@
-# smart_home_app
+Smart home app
 
-A new Flutter project.
+Project for control your home
