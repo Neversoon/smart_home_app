@@ -60,7 +60,7 @@ class CommandHandler {
                 if (component.electronicComponentInformation.name == words[1]) {
                   final snackBar = SnackBar(
                       content: Text(
-                          '${component.electronicComponentInformation.name} enabled'),
+                          '${component.electronicComponentInformation.name} enabled\nIn space: ${space.name}'),
                       duration: const Duration(seconds: 3));
                   component.electronicComponentInformation.status = true;
                   print(component.electronicComponentInformation.toJson());
@@ -81,7 +81,7 @@ class CommandHandler {
                     words[1].replaceAll(' ', '')) {
                   final snackBar = SnackBar(
                       content: Text(
-                          '${component.electronicComponentInformation.name} disabled'),
+                          '${component.electronicComponentInformation.name} disabled\nIn space: ${space.name}'),
                       duration: const Duration(seconds: 3));
                   component.electronicComponentInformation.status = false;
                   print(component.electronicComponentInformation.toJson());
@@ -106,7 +106,7 @@ class CommandHandler {
                         .electronicComponentInformation as SensorInformation;
                     final snackBar = SnackBar(
                         content: Text(
-                            '${sensorInformation.name} value: ${sensorInformation.value}'),
+                            '${sensorInformation.name} value: ${sensorInformation.value}\nIn space: ${space.name}'),
                         duration: const Duration(seconds: 3));
                     _speech.cancel();
                     setter(() {
