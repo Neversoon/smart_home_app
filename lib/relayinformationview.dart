@@ -42,7 +42,7 @@ class RelayInformationView extends InformationView {
                         onTap: () {
                           electronicComponentConrol
                               .removeElectronicComponent(relayInformation);
-                          databaseConnector.PushData();
+                          databaseConnector.SetData();
                         },
                         child: const Text('Delete'),
                       ),
@@ -81,7 +81,7 @@ class RelayInformationView extends InformationView {
                           "Value Relay changed to ${relayInformation.status}");
                       print(
                           "Value Electronic component changed to ${electronicComponentInformation.status}");
-                      databaseConnector.PushData();
+                      databaseConnector.SetData();
                     });
                   },
                 ),

@@ -41,7 +41,7 @@ class LedInformationView extends InformationView {
                         onTap: () => {
                           electronicComponentConrol
                               .removeElectronicComponent(ledInformation),
-                          databaseConnector.PushData()
+                          databaseConnector.SetData()
                         },
                         child: const Text('Delete'),
                       ),
@@ -83,7 +83,7 @@ class LedInformationView extends InformationView {
                         }
                       },
                     );
-                    databaseConnector.PushData();
+                    databaseConnector.SetData();
                   },
                 ),
               ],

@@ -178,9 +178,9 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 1, // Количество столбцов
-          crossAxisSpacing: 8.0, // Пространство между столбцами
-          mainAxisSpacing: 8.0, // Пространство между строками
+          crossAxisCount: 1, 
+          crossAxisSpacing: 8.0,
+          mainAxisSpacing: 8.0,
           childAspectRatio: 0.8,
         ),
         itemCount: space.electronicComponents.length,
@@ -194,7 +194,7 @@ class _DetailScreenState extends State<DetailScreen> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return addingComponentDialogs.showDialog(setState, context);
+              return addingComponentDialogs.showMCComponentDialog(setState, context);
             },
           );
         },

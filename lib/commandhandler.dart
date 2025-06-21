@@ -64,7 +64,7 @@ class CommandHandler {
                       duration: const Duration(seconds: 3));
                   component.electronicComponentInformation.status = true;
                   print(component.electronicComponentInformation.toJson());
-                  databaseConnector.PushData();
+                  databaseConnector.SetData();
                   setter(() {
                     stopListening();
                   });
@@ -85,7 +85,7 @@ class CommandHandler {
                       duration: const Duration(seconds: 3));
                   component.electronicComponentInformation.status = false;
                   print(component.electronicComponentInformation.toJson());
-                  databaseConnector.PushData();
+                  databaseConnector.SetData();
                   setter(() {
                     stopListening();
                   });

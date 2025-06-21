@@ -63,7 +63,7 @@ class DatabaseConnector {
     });
   }
 
-  void PushData() {
+  void SetData() {
     String data = "";
     bool isFirstElement = true;
     for (Space element in spaces) {
@@ -128,11 +128,9 @@ class DatabaseConnector {
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      PushData();
+      SetData();
     });
   }
-
-  // Метод для остановки таймера (если необходимо)
   void stopTimer() {
     _timer.cancel();
   }

@@ -41,7 +41,7 @@ class SensorInformationView extends InformationView {
                         value: 1,
                         onTap: () {
                           electronicComponentConrol.removeElectronicComponent(sensorInformation);
-                          databaseConnector.PushData();
+                          databaseConnector.SetData();
                         },
                         child: const Text('Delete'),
                       ),
