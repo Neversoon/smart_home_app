@@ -1,19 +1,22 @@
 import 'package:smart_home_app/ElectronicView.dart';
+import 'package:smart_home_app/MC/mcboard.dart';
 import 'package:smart_home_app/electroniccomponent.dart';
 import 'package:smart_home_app/electroniccomponentinformation.dart';
 import 'package:smart_home_app/ledinformation.dart';
 import 'package:smart_home_app/relayinformation.dart';
 import 'package:smart_home_app/sensorinformation.dart';
 
-class Space{
+class Space {
   String name = "";
+  List<McBoard> boards = [];
+
   List<ElectronicComponent> electronicComponents = [];
 
-  Space({required this.name});
+  Space({required this.name, required this.boards});
 
   void removeElectronicComponentByName(String name) {
-    electronicComponents
-        .removeWhere((component) => component.electronicComponentInformation.name == name);
+    electronicComponents.removeWhere(
+        (component) => component.electronicComponentInformation.name == name);
   }
 
   // Constructor from JSON
@@ -46,10 +49,10 @@ class Space{
   Map<String, dynamic> toJson() {
     return {
       'name': name,
+      'boards': boards.map((board) => board.toJson()),
       'electronicComponents': electronicComponents
           .map((component) => component.electronicComponentInformation.toJson())
           .toList(),
     };
   }
-
 }

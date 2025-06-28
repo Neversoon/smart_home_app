@@ -10,9 +10,10 @@ import 'package:smart_home_app/ledaddingview.dart';
 import 'package:smart_home_app/main.dart';
 import 'package:smart_home_app/relayaddingview.dart';
 import 'package:smart_home_app/sensoraddingview.dart';
+import 'package:smart_home_app/space.dart';
 
 class AddingComponentDialogs {
-  List<ElectronicComponent> electronicComponents = [];
+  Space currentSpace;
 
   ElectronicComponentType selectedTypeElectronicComponent =
       ElectronicComponentType.Relay;
@@ -23,7 +24,7 @@ class AddingComponentDialogs {
     ElectronicComponentType.Sensor: SensorAddingView(),
   };
 
-  AddingComponentDialogs(this.electronicComponents);
+  AddingComponentDialogs(this.currentSpace);
 
   Widget showElectronicComponentDialog(
       StateSetter setStateMain, BuildContext mainContext) {
@@ -75,120 +76,12 @@ class AddingComponentDialogs {
                   ElectronicView.getInformationViewByType(
                       electronicComponentInformation);
               informationView.stateSetter = setStateMain;
-              electronicComponents.add(ElectronicComponent(
+              currentSpace.electronicComponents.add(ElectronicComponent(
                   electronicComponentInformation, informationView));
               databaseConnector.SetData();
 
               localDataStorage.saveData(spaces);
             });
-            Navigator.of(mainContext).pop();
-          },
-        ),
-      ],
-    );
-  }
-
-  Widget showMCComponentDialog(
-      StateSetter setStateMain, BuildContext mainContext) {
-    return AlertDialog(
-      title: const Text("Add your MC"),
-      content: StatefulBuilder(
-        builder: (BuildContext context, StateSetter setState) {
-          return SizedBox(
-            height: double.maxFinite,
-            width: double.maxFinite,
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
-                childAspectRatio: 0.9,
-              ),
-              itemCount: boards.length,
-              itemBuilder: (context, index) {
-                return Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 6,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(20),
-                      child: ListView(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 3.0),
-                        children: [
-                          Text(
-                            boards[index].name,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Container(
-                            height: 256.0,
-                            width: 256.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                image: AssetImage(boards[index].iconPath),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            boards[index].description,
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 8,
-                      right: 8,
-                      child: InkWell(
-                        onTap: () {
-                          // Handle add MC action here
-                          print("Add MC: ${boards[index].name}");
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            shape: BoxShape.circle,
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          );
-        },
-      ),
-      actions: <Widget>[
-        TextButton(
-          child: const Text("Cancel"),
-          onPressed: () {
             Navigator.of(mainContext).pop();
           },
         ),

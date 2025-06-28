@@ -12,7 +12,7 @@ class CommandHandler {
   bool isListening = false;
 
   List<Space> spaces;
-  Icon microIcon = const Icon(Icons.mic_external_on);
+  Icon microIcon = const Icon(Icons.mic);
 
   late BuildContext buildContext;
   late StateSetter setter;
@@ -30,7 +30,7 @@ class CommandHandler {
 
   void startListening() {
     if (!isListening && _speech.isAvailable) {
-      microIcon = const Icon(Icons.mic_external_off);
+      microIcon = const Icon(Icons.mic);
       _speech.listen(onResult: (result) {
         String command = result.recognizedWords.toLowerCase();
         executeCommand(command);
@@ -41,7 +41,7 @@ class CommandHandler {
 
   void stopListening() {
     if (isListening) {
-      microIcon = const Icon(Icons.mic_external_on);
+      microIcon = const Icon(Icons.mic_off);
       _speech.stop();
       isListening = false;
     }

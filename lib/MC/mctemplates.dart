@@ -3,6 +3,7 @@ import 'package:smart_home_app/MC/pinout.dart';
 
 final boards = <McBoard>[
   McBoard(
+      0,
       "WEMOS D1 R2 WIFI ESP8266 Shield Arduino Compatible",
       """
 WeMos-D1R2 is an ESP8266-12 based WiFi enabled microprocessor unit on a
