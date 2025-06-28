@@ -53,26 +53,24 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<McBoard> addedBoards = List.empty(growable: true);
+  late McBoard selectedBoard = McBoard(-1, "undef", "undef", []);
 
   bool boardContainsInAdd(int id) {
-    for (int i = 0; i < addedBoards.length; i++) {
-      if (addedBoards[i].id == id) {
-        return true;
-      }
+    if (selectedBoard.id == id) {
+      return true;
     }
     return false;
   }
 
-  Widget addMCWidget(McBoard mcboard, StateSetter state) {
+  Widget selectMCWidget(McBoard mcboard, StateSetter state) {
     return ElevatedButton.icon(
       onPressed: () {
         state(() {
-          addedBoards.add(mcboard.clone());
+          selectedBoard = mcboard.clone();
         });
       },
       icon: const Icon(Icons.add),
-      label: const Text("Add"),
+      label: const Text("Select"),
     );
   }
 
@@ -80,11 +78,7 @@ class _MainScreenState extends State<MainScreen> {
     return ElevatedButton.icon(
       onPressed: () {
         state(() {
-          for (int i = 0; i < addedBoards.length; i++) {
-            if (mcboard.id == addedBoards[i].id) {
-              addedBoards.remove(addedBoards[i]);
-            }
-          }
+          selectedBoard = McBoard(-1, "undef", "undef", []);
         });
       },
       icon: const Icon(Icons.remove),
@@ -96,7 +90,7 @@ class _MainScreenState extends State<MainScreen> {
     if (boardContainsInAdd(mcboard.id)) {
       return removeMCWidget(mcboard, state);
     }
-    return addMCWidget(mcboard, state);
+    return selectMCWidget(mcboard, state);
   }
 
   @override
@@ -243,7 +237,7 @@ class _MainScreenState extends State<MainScreen> {
                 String name = nameController.text.trim();
                 if (name.isNotEmpty) {
                   setState(() {
-                    spaces.add(Space(name: name, boards: addedBoards));
+                    spaces.add(Space(name: name, board: selectedBoard));
                     localDataStorage.saveData(spaces);
                     Navigator.of(context).pop();
                   });
@@ -298,13 +292,13 @@ class _DetailScreenState extends State<DetailScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-           showDialog(
+          showDialog(
             context: context,
             builder: (BuildContext context) {
               return addingComponentDialogs.showElectronicComponentDialog(
                   setState, context);
             },
-          ); 
+          );
         },
         child: const Icon(Icons.add),
       ),

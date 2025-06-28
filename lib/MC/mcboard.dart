@@ -25,25 +25,20 @@ class McBoard {
     );
   }
 
-  factory McBoard.fromJson(Map<String, dynamic> json) {
-    return McBoard(
-      json['id'] ?? -1,
-      json['name'] ?? '',
-      json['description'] ?? '',
-      (json['pinout'] as List<dynamic>? ?? [])
-          .map((e) => Pinout.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      iconPath: json['iconPath'] ?? '',
-    );
-  }
+  McBoard.fromJson(Map<String, dynamic> json)
+      : name = json['name'] ?? "",
+        description = json['description'] ?? "",
+        iconPath = json['iconPath'] ?? "",
+        pinout = (json['pinout'] as List<dynamic>)
+            .map((e) => Pinout.fromJson(e))
+            .toList();
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'description': description,
       'iconPath': iconPath,
-      'pinout': pinout.map((p) => p.toJson()).toList(),
+      'pinout': pinout.map((e) => e.toJson()).toList(),
     };
   }
 }
