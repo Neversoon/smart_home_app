@@ -95,70 +95,90 @@ class AddingComponentDialogs {
       content: StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return SizedBox(
-            height: 350,
+            height: double.maxFinite,
             width: double.maxFinite,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 12.0,
-                mainAxisSpacing: 12.0,
+                crossAxisCount: 4,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
                 childAspectRatio: 0.9,
               ),
               itemCount: boards.length,
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    print("Pressed: ${boards[index].name}");
-                    // you can also update state or close the dialog here
-                  },
-                  borderRadius: BorderRadius.circular(16),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 6,
-                          offset: Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 100.0,
-                          width: 100.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: AssetImage(boards[index].iconPath),
-                              fit: BoxFit.cover,
+                return Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 6,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      child: ListView(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 3.0),
+                        children: [
+                          Text(
+                            boards[index].name,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          boards[index].name,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                          Container(
+                            height: 256.0,
+                            width: 256.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              image: DecorationImage(
+                                image: AssetImage(boards[index].iconPath),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ),
-                        Text(
-                          boards[index].description,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                          const SizedBox(height: 10),
+                          Text(
+                            boards[index].description,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 8,
+                      right: 8,
+                      child: InkWell(
+                        onTap: () {
+                          // Handle add MC action here
+                          print("Add MC: ${boards[index].name}");
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blueAccent,
+                            shape: BoxShape.circle,
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),
